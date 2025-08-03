@@ -1,6 +1,16 @@
-
 const rules = require('./ruleCatalog_v3.json');
 
+/**
+ * @typedef {import('../../types').Position} Position
+ * @typedef {import('../../types').EvaluationResult} EvaluationResult
+ */
+
+/**
+ * Applies rule catalog to offer positions.
+ * @param {Position[]} positions
+ * @param {number} [regionId]
+ * @returns {EvaluationResult[]}
+ */
 function applyRules(positions, regionId) {
   const results = [];
   positions.forEach(pos => {

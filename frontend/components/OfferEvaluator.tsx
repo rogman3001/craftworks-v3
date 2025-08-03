@@ -8,15 +8,14 @@ export default function OfferEvaluator() {
   const [error, setError] = useState<string | null>(null);
   const [results, setResults] = useState<EvaluationResult[] | null>(null);
 
-
   const handleEvaluate = async () => {
     if (!offerId) return;
     setLoading(true);
     setError(null);
     setResults(null);
     try {
-    const res = await evaluateOffer(offerId);
-    setResults(res);
+      const res = await evaluateOffer(offerId);
+      setResults(res);
     } catch (e: any) {
       setError(e.message || "Unbekannter Fehler");
     } finally {
@@ -24,11 +23,11 @@ export default function OfferEvaluator() {
     }
   };
 
-const colorMap = {
-  rot: "bg-red-500",
-  gelb: "bg-yellow-400",
-  grün: "bg-green-500",
-};
+  const colorMap = {
+    rot: "bg-red-500",
+    gelb: "bg-yellow-400",
+    grün: "bg-green-500",
+  } as const;
 
   return (
     <div className="p-4 border rounded-md max-w-md mx-auto space-y-4">
@@ -51,20 +50,20 @@ const colorMap = {
       {error && <p className="text-red-600">❌ {error}</p>}
       {results && (
         <div className="space-y-2">
-          {results.map((r, idx) => (
-            <div key={idx} className="flex items-center gap-3">
+          {results.map((r) => (
+            <div key={r.position_id} className="flex items-center gap-3">
               <span
                 className={`w-5 h-5 rounded-full ${colorMap[r.bewertung]}`}
                 title={r.bewertung}
               />
               <span>
-            <strong>Kommentar:</strong>{" "}
-          {r.kommentare.length > 0 ? r.kommentare.join(", ") : "Keine"}
-        </span>
-      </div>
-    ))}
-  </div>
-)}
+                <strong>Position {r.position_id}:</strong>{" "}
+                {r.kommentare.length > 0 ? r.kommentare.join(", ") : "Keine"}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

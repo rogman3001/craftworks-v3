@@ -1,7 +1,6 @@
-export type EvaluationResult = {
-  bewertung: "rot" | "gelb" | "grün";
-  kommentare: string[];
-};
+import type { EvaluationResult } from "@backend/types";
+
+export type { EvaluationResult };
 
 export async function evaluateOffer(offerId: number): Promise<EvaluationResult[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bewerten`, {
